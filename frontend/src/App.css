@@ -1,0 +1,102 @@
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f4f7f6; 
+  margin: 0;
+  padding: 20px;
+  justify-content: center;
+}
+
+.game-container {
+ 
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff; 
+  border-radius: 12px;
+ 
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+h1 {
+  color: #222; 
+  margin-top: 0;
+}
+
+h2 {
+  color: #333; 
+  border-bottom: 1px solid #eef0f2;
+  padding-bottom: 10px;
+}
+
+p {
+  color: #555; 
+  line-height: 1.6;
+}
+
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  
+  border-radius: 8px;
+  overflow: hidden; 
+}
+
+.results-table th,
+.results-table td {
+  padding: 12px 15px;
+  border: 1px solid #e2e8f0; 
+  text-align: left;
+  color: #444;
+}
+
+.results-table thead tr {
+  background-color: #f7fafc; 
+}
+
+.results-table th {
+  font-weight: 600;
+  color: #4a5568; 
+  text-transform: uppercase; 
+  font-size: 13px; 
+}
+
+.results-table td:first-child {
+  text-align: center;
+  font-weight: bold;
+  width: 50px;
+}
+
+.results-table tbody tr:first-child {
+  background-color: #e6f7eb; 
+}
+
+.results-table tbody tr:first-child td {
+  font-weight: bold;
+  color: #2f855a; 
+}
+
+.results-table tbody tr:not(:first-child):hover {
+    background-color: #f9f9f9;
+}
+
+.guess-input {
+  flex: 1;
+  font-size: 16px;
+  padding: 12px 4px;
+  color: #222;
+  border: none; 
+  border-radius: 0; 
+  border-bottom: 2px solid #ccc;
+  background-color: transparent; 
+  transition: border-color 0.2s ease;
+}
+
+.guess-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: none; 
+}
