@@ -12,6 +12,60 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+def solve_nash_pure(matrix):
+    """
+    Găsește toate echilibrele Nash pure într-o matrice de joc.
+    Matrix este o listă de liste de tuple (p1_payoff, p2_payoff).
+    Returnează o listă de coordonate [(row, col), ...].
+    """
+    rows = len(matrix)
+    cols = len(matrix[0])
+    equilibria = []
+
+    for r in range(rows):
+        for c in range(cols):
+            p1_score = matrix[r][c][0]
+            p2_score = matrix[r][c][1]
+
+            is_best_for_p1 = True
+            for r_check in range(rows):
+                if matrix[r_check][c][0] > p1_score:
+                    is_best_for_p1 = False
+                    break
+            
+            is_best_for_p2 = True
+            for c_check in range(cols):
+                if matrix[r][c_check][1] > p2_score:
+                    is_best_for_p2 = False
+                    break
+            
+            if is_best_for_p1 and is_best_for_p2:
+                equilibria.append((r, c))
+                
+    return equilibria
+
+@app.route('/api/generate-nash', methods=['GET'])
+def generate_nash():
+    size = random.randint(2,6)
+    
+    matrix = []
+    for r in range(size):
+        row_data = []
+        for c in range(size):
+            p1 = random.randint(-5, 5)
+            p2 = random.randint(-5, 5)
+            row_data.append((p1, p2))
+        matrix.append(row_data)
+
+    equilibria = solve_nash_pure(matrix)
+    has_equilibrium = len(equilibria) > 0
+
+    return jsonify({
+        "matrix": matrix,
+        "size": size,
+        "has_equilibrium": has_equilibrium,
+        "equilibria_indices": equilibria  # Trimitem și indecșii pentru a-i evidenția la final
+    })
 
 
 class NQueensPartialState:
@@ -224,8 +278,8 @@ def run_benchmark():
         result_entry = {
             "name": name,
             "solution": "N/A",
-            "duration_sec": float('inf'),  # Timp numeric (infinit în caz de eroare)
-            "duration_str": "EROARE",  # Timp ca text
+            "duration_sec": float('inf'),
+            "duration_str": "EROARE",
             "status": "EROARE"
         }
 
@@ -246,7 +300,6 @@ def run_benchmark():
         except Exception as e:
             print(f"  -> EROARE: {e}")
             result_entry["solution"] = str(e)
-            # duration_sec și duration_str sunt deja setate la EROARE/infinit
 
         results_list.append(result_entry)
 
